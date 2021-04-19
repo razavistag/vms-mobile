@@ -8,6 +8,8 @@ import LoginHeader from './components/LoginHeader';
 import Login from './screens/Login';
 import HomeScreen from './screens/HomeScreen';
 
+import http from './helpers/httpService';
+
 // function HomeScreen({navigation}) {
 //   return (
 //     <>
@@ -163,6 +165,7 @@ function App() {
             options={{
               headerShown: false,
             }}
+            initialRouteName="HomeScreen"
           />
           <Stack.Screen
             name="Login"

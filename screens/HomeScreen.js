@@ -10,10 +10,27 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input, Button, Avatar} from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Appbar from '../components/Appbar';
+import http from '../helpers/httpService';
 
 class HomeScreen extends Component {
+    // logout = ()=>{
+    //     http
+    //     .get(`/logout`)
+    //     .then(res => {
+         
+  
+    //       console.log('logged in success');
+    //       console.log(AsyncStorage.getItem('token'));
+    //     })
+    //     .catch(e => {
+    //       console.log(e, 'PLEASE TRY AGAIN LATER');
+    //     });
+  
+    //     console.log(12)
+    // }
   render() {
     return (
       <>
@@ -55,7 +72,43 @@ class HomeScreen extends Component {
               type="clear"
             />
 
-            <Button
+{AsyncStorage.getItem('token') ? <Text>loged in</Text> : <Text>loged out</Text>}
+
+              {AsyncStorage.getItem('token') ?  <Button
+              buttonStyle={{
+                padding: 0,
+                paddingLeft: 10,
+                paddingRight: 10,
+              }}
+             
+              title="Logout"
+              titleStyle={{color: '#3498db'}}
+              type="clear"
+              onPress={this.logout}
+            />
+        :
+        
+        <Button
+        buttonStyle={{
+          padding: 0,
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}
+        icon={
+          <Avatar
+            rounded
+            icon={{name: 'login', size: 20, color: '#3498db'}}
+            containerStyle={{backgroundColor: '#fff'}}
+          />
+        }
+        title="Login"
+        titleStyle={{color: '#3498db'}}
+        type="clear"
+        onPress={() => this.props.navigation.navigate('Login')}
+      />
+      }
+
+            {/* <Button
               buttonStyle={{
                 padding: 0,
                 paddingLeft: 10,
@@ -72,7 +125,7 @@ class HomeScreen extends Component {
               titleStyle={{color: '#3498db'}}
               type="clear"
               onPress={() => this.props.navigation.navigate('Login')}
-            />
+            /> */}
           </View>
         </View>
       </>

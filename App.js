@@ -1,12 +1,15 @@
 import * as React from 'react';
+import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginHeader from './components/LoginHeader';
+import RegisterHeader from './components/RegisterHeader';
 
 import Login from './screens/Login';
 import HomeScreen from './screens/HomeScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 import http from './helpers/httpService';
 
@@ -157,15 +160,15 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <SafeAreaProvider>
+      <StatusBar backgroundColor="#80CBC4" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="HomeScreen">
           <Stack.Screen
             name="Home"
             component={HomeScreen}
             options={{
               headerShown: false,
             }}
-            initialRouteName="HomeScreen"
           />
           <Stack.Screen
             name="Login"
@@ -173,6 +176,21 @@ function App() {
             options={{
               title: 'Login',
               headerTitle: props => <LoginHeader />,
+              headerTintColor: '#fff',
+              headerStyle: {
+                backgroundColor: '#26A69A',
+              },
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{
+              title: 'Register',
+              headerTitle: props => <RegisterHeader />,
               headerTintColor: '#fff',
               headerStyle: {
                 backgroundColor: '#26A69A',

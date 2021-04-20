@@ -14,7 +14,7 @@ import {Input, Button, Avatar, Overlay, ListItem} from 'react-native-elements';
 import http from '../helpers/httpService';
 import {TextInput} from 'react-native';
 import {ScrollView} from 'react-native';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
@@ -120,7 +120,33 @@ class RegisterScreen extends Component {
                   />
                   {/* NEED TO FIX */}
                   {/* GENDER */}
-                  <Input
+                  <DropDownPicker
+                    items={[
+                      {
+                        label: 'MALE',
+                        value: 'MALE',
+                      },
+                      {
+                        label: 'FEMALE',
+                        value: 'FEMALE',
+                      },
+                      {
+                        label: 'OTHERS',
+                        value: 'OTHERS',
+                      },
+                    ]}
+                    placeholder="GENDER"
+                    containerStyle={{height: 40}}
+                    style={{
+                      backgroundColor: '#fff',
+                      borderBottomColor: 'gray',
+                    }}
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                    }}
+                    dropDownStyle={{backgroundColor: '#fafafa'}}
+                  />
+                  {/* <Input
                     style={{
                       // backgroundColor: 'red',
                       paddingLeft: 10,
@@ -128,7 +154,7 @@ class RegisterScreen extends Component {
                     }}
                     leftIcon={<Icon name="venus-mars" size={15} color="gray" />}
                     placeholder="GENDER need to be on select"
-                  />
+                  /> */}
                   {/* ADDRESS */}
                   <Input
                     style={{
@@ -178,6 +204,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     // height: 56,
     flex: 1,
+    backgroundColor: '#fff',
 
     // backgroundColor: 'red',
   },

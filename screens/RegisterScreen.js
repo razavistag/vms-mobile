@@ -8,7 +8,8 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-} from 'react-native'; 
+  ToastAndroid,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -61,14 +62,24 @@ class RegisterScreen extends Component {
   };
 
   componentDidMount() {
-    console.log('did mounted'); 
+    console.log('did mounted');
+    this.Toast('mounted');
   }
 
   componentWillUnmount() {
     this.componentDidMount();
   }
 
+  Toast = msg => {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(msg, ToastAndroid.SHORT);
+    } else {
+      AlertIOS.alert(msg);
+    }
+  };
+
   submitRegister = async () => {
+    this.Toast('success');
     console.log('register triggered');
     console.log('Register Form', this.state.form);
     let registerForm = {

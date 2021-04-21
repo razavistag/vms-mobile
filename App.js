@@ -162,7 +162,7 @@ function App() {
     <SafeAreaProvider>
       <StatusBar backgroundColor="#80CBC4" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Navigator initialRouteName="RegisterScreen">
           <Stack.Screen
             name="Home"
             component={HomeScreen}

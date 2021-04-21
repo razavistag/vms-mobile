@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {
   View,
@@ -17,10 +17,15 @@ import {TouchableOpacity} from 'react-native';
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.refUse = {
+      ref_input_password: createRef(),
+    };
+
     this.state = {
       // email: 'percival.ratke@example.org',
       // passwrod: 'password',
-      
+
       email: '',
       passwrod: '',
 
@@ -102,7 +107,7 @@ class Login extends Component {
                   //   backgroundColor: 'red',
                   justifyContent: 'center',
                   flexDirection: 'row',
-                  paddingVertical:20
+                  paddingVertical: 20,
                 }}>
                 <Text style={{fontWeight: 'bold', fontSize: 20, color: 'gray'}}>
                   LOGIN YOUR ACCOUNT
@@ -119,9 +124,13 @@ class Login extends Component {
                 onChangeText={e => this.setState({email: e})}
                 value={this.state.email}
                 leftIcon={<Icon name="envelope" size={15} color="gray" />}
-                placeholder="Enter your email ..."
+                placeholder="Email ..."
                 keyboardType="email-address"
                 autoCapitalize="none"
+                returnKeyType="next"
+                onSubmitEditing={() =>
+                  this.refUse.ref_input_password.current.focus()
+                }
               />
               {/* <Text>{this.state.passwrod}</Text> */}
               <Input
@@ -134,9 +143,10 @@ class Login extends Component {
                 onChangeText={e => this.setState({passwrod: e})}
                 value={this.state.passwrod}
                 leftIcon={<Icon name="lock" size={15} color="gray" />}
-                placeholder="password"
+                placeholder="Password ..."
                 autoCapitalize="none"
                 secureTextEntry={true}
+                ref={this.refUse.ref_input_password}
               />
 
               <View
@@ -148,11 +158,16 @@ class Login extends Component {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
-                <Text>Create a new account</Text>
+                <Text
+                  style={{
+                    color: 'gray',
+                  }}>
+                  Create a new account
+                </Text>
                 <TouchableOpacity>
                   <Text
                     style={{
-                      color: 'blue',
+                      color: '#26A69A',
                     }}
                     onPress={() => {
                       this.props.navigation.navigate('RegisterScreen');
@@ -170,6 +185,9 @@ class Login extends Component {
                 }}
                 title="LOGIN"
                 onPress={this.submitLogin}
+                buttonStyle={{
+                  backgroundColor: '#26A69A',
+                }}
               />
 
               <Text selectable>{this.state.token}</Text>

@@ -17,6 +17,7 @@
     "@react-navigation/stack": "^5.14.4",
     "axios": "^0.21.1",
     "link": "^0.1.5",
+    "native-base": "^2.15.2",
     "react": "17.0.1",
     "react-native": "^0.64.0",
     "react-native-dropdown-picker": "^4.0.9",

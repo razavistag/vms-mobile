@@ -9,7 +9,14 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Input, Button, Avatar, Overlay, ListItem} from 'react-native-elements';
+import {
+  Input,
+  Button,
+  Avatar,
+  Overlay,
+  ListItem,
+  Image,
+} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Appbar from '../components/Appbar';
@@ -77,7 +84,7 @@ class HomeScreen extends Component {
   redrirect = i => {
     console.log(i);
     if (i == 'Dashboard') {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('DashboardScreen');
     }
     if (i == 'Logout') {
       this.logout();
@@ -115,60 +122,26 @@ class HomeScreen extends Component {
               flex: 1,
               justifyContent: 'space-between',
               flexDirection: 'row',
+              alignItems: 'center',
               // backgroundColor: 'red',
               // height:400
             }}>
-            {/* <Button
-              icon="home"
-              onPress={() => console.log('Pressed')}></Button>
-              */}
-            {/* <Button
-              icon="logout"
-              onPress={() => navigation.navigate('Login')}>
-              Login
-            </Button>  */}
+            {/* <Icon name="close" color="red" />
+            <Text style={{color: '#26A69A', fontWeight: 'bold'}}>
+              VISTA MANAGMENT SYSTEM
+            </Text> */}
 
-            <Button
-              buttonStyle={{
-                padding: 0,
-                paddingLeft: 10,
-                paddingRight: 10,
-              }}
-              icon={
-                <Avatar
-                  rounded
-                  icon={{name: 'home', size: 20, color: '#3498db'}}
-                  containerStyle={{backgroundColor: '#fff'}}
-                />
-              }
-              title=""
-              type="clear"
+            <Image
+              source={require('../asserts/vistalogo.png')}
+              style={{width: 173, height: 50}}
             />
-
-            {/* {this.state.token ? (
-              <Text>logged in</Text>
-            ) : (
-              <Text>No Users Logged-in</Text>
-            )} */}
 
             {this.state.token ? (
               <>
-                {/* <Button
-                  buttonStyle={{
-                    padding: 0,
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                  }}
-                  title="Logout"
-                  titleStyle={{color: '#3498db'}}
-                  type="clear"
-                  onPress={this.logout}
-                /> */}
-
                 <Avatar
                   size="small"
                   rounded
-                  overlayContainerStyle={{backgroundColor: 'blue'}}
+                  overlayContainerStyle={{backgroundColor: '#0984e3'}}
                   icon={{name: 'list', type: 'font-awesome'}}
                   onPress={() => {
                     this.setState({overlyVisible: true});

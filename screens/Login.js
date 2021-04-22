@@ -13,8 +13,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input, Button, Avatar} from 'react-native-elements';
 import http from '../helpers/httpService';
 import {TouchableOpacity} from 'react-native';
+import ValidationComponent from 'react-native-form-validator';
 
-class Login extends Component {
+class Login extends ValidationComponent {
   constructor(props) {
     super(props);
 
@@ -27,16 +28,20 @@ class Login extends Component {
       // passwrod: 'password',
 
       email: '',
-      passwrod: '',
+      password: '',
 
       token: '',
     };
   }
 
   submitLogin = async () => {
+    this.validate({
+      email: {email: true, required: true},
+      password: {required: true},
+    });
     let form = {
       email: this.state.email,
-      password: this.state.passwrod,
+      password: this.state.password,
     };
 
     http
@@ -114,45 +119,91 @@ class Login extends Component {
                 </Text>
               </View>
 
-              <Input
+              <View
                 style={{
+                  height: 45,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   // backgroundColor: 'red',
-                  padding: 0,
-                  paddingLeft: 10,
-                  margin: 0,
-                }}
-                onChangeText={e => this.setState({email: e})}
-                value={this.state.email}
-                leftIcon={<Icon name="envelope" size={15} color="gray" />}
-                placeholder="Email ..."
-                keyboardType="email-address"
-                autoCapitalize="none"
-                returnKeyType="next"
-                onSubmitEditing={() =>
-                  this.refUse.ref_input_password.current.focus()
-                }
-              />
-              {/* <Text>{this.state.passwrod}</Text> */}
-              <Input
+                }}>
+                <Input
+                  style={{
+                    // backgroundColor: 'red',
+                    padding: 0,
+                    paddingLeft: 10,
+                    margin: 0,
+                  }}
+                  onChangeText={e =>
+                    this.setState({email: e}, () => {
+                      this.validate({
+                        email: {required: true, email: true},
+                      });
+                    })
+                  }
+                  value={this.state.email}
+                  leftIcon={<Icon name="envelope" size={15} color="gray" />}
+                  placeholder="Email ..."
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  returnKeyType="next"
+                  onSubmitEditing={() =>
+                    this.refUse.ref_input_password.current.focus()
+                  }
+                />
+              </View>
+              <View style={styles.errorView}>
+                {this.isFieldInError('email') &&
+                  this.getErrorsInField('email').map((e, i) => (
+                    <Text style={{color: 'red'}} key={i}>
+                      {e}
+                    </Text>
+                  ))}
+              </View>
+              <View
                 style={{
-                  // backgroundColor: 'green',
-                  padding: 0,
-                  paddingLeft: 10,
-                  margin: 0,
-                }}
-                onChangeText={e => this.setState({passwrod: e})}
-                value={this.state.passwrod}
-                leftIcon={<Icon name="lock" size={15} color="gray" />}
-                placeholder="Password ..."
-                autoCapitalize="none"
-                secureTextEntry={true}
-                ref={this.refUse.ref_input_password}
-              />
+                  height: 45,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // backgroundColor: 'red',
+                }}>
+                <Input
+                  style={{
+                    // backgroundColor: 'green',
+                    padding: 0,
+                    paddingLeft: 10,
+                    margin: 0,
+                  }}
+                  onChangeText={e =>
+                    this.setState({password: e}, () => {
+                      this.validate({
+                        email: {required: true, email: true},
+                      });
+                    })
+                  }
+                  value={this.state.password}
+                  leftIcon={<Icon name="lock" size={15} color="gray" />}
+                  placeholder="Password ..."
+                  autoCapitalize="none"
+                  secureTextEntry={true}
+                  ref={this.refUse.ref_input_password}
+                />
+              </View>
+
+              <View style={styles.errorView}>
+                {this.isFieldInError('password') &&
+                  this.getErrorsInField('password').map((e, i) => (
+                    <Text style={{color: 'red'}} key={i}>
+                      {e}
+                    </Text>
+                  ))}
+              </View>
 
               <View
                 style={{
                   // backgroundColor: 'red',
-                  marginTop: -20,
+                  marginTop: 8,
                   marginVertical: 10,
                   paddingHorizontal: 10,
                   flexDirection: 'row',
@@ -198,5 +249,11 @@ class Login extends Component {
     );
   }
 }
-
+const styles = StyleSheet.create({
+  errorView: {
+    top: 1,
+    paddingLeft: 13,
+    marginBottom: 5,
+  },
+});
 export default Login;

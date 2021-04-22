@@ -27,6 +27,8 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props)
+
     this.props.navigation.addListener('focus', () => {
       console.log('mounting app');
       this.componentDidMount();

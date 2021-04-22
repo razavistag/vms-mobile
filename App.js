@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {NavigationContainer} from '@react-navigation/native';
+
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerActions, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import LoginHeader from './components/LoginHeader';
@@ -18,10 +19,42 @@ import RegisterScreen from './screens/RegisterScreen';
 import DashboardScreen from './screens/adminScreens/Dashboard';
 
 import http from './helpers/httpService';
+import Sidebar from './components/CustomSidebar';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-function App() {
+const DrawerRoutes = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName={DashboardScreen}
+      drawerContent={props => <Sidebar {...props} />}>
+      <Drawer.Screen
+        name="DashboardScreen"
+        component={DashboardScreen}
+        options={{
+          title: 'Dashboard',
+        }}
+      />
+      <Drawer.Screen
+        name="sd"
+        component={DashboardScreen}
+        options={{
+          title: 'sd',
+        }}
+      />
+      <Drawer.Screen
+        name="Login"
+        component={Login}
+        options={{
+          title: 'Login',
+        }}
+      />
+    </Drawer.Navigator>
+  );
+};
+
+function App({navigation}) {
   return (
     <SafeAreaProvider>
       <StatusBar backgroundColor="#80CBC4" />
@@ -35,7 +68,7 @@ function App() {
             }}
           />
           <Stack.Screen
-            name="Login"
+            name="onPress={() => this.props.navigation.navigate('Login')"
             component={Login}
             options={{
               title: 'Login',
@@ -66,7 +99,7 @@ function App() {
           />
           <Stack.Screen
             name="DashboardScreen"
-            component={DashboardScreen}
+            component={DrawerRoutes}
             options={{
               title: 'Dashboard',
               headerTitle: props => <DashboardHeader />,
@@ -82,7 +115,11 @@ function App() {
                   name="bars"
                   style={{marginLeft: 20}}
                   color="#fff"
-                  size={15}></Icon>
+                  size={15}
+                  onPress={
+                    props => console.log(navigation)
+                    // props.navigation.dispatch(DrawerActions.openDrawer())
+                  }></Icon>
               ),
             }}
           />

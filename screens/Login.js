@@ -24,11 +24,11 @@ class Login extends ValidationComponent {
     };
 
     this.state = {
-      // email: 'percival.ratke@example.org',
-      // passwrod: 'password',
+      email: 'percival.ratke@example.org',
+      passwrod: 'password',
 
-      email: '',
-      password: '',
+      // email: '',
+      // password: '',
 
       token: '',
     };

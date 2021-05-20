@@ -60,6 +60,7 @@ class Login extends ValidationComponent {
           console.log('logged in success');
         console.log(res.data.user_information);
 
+        this.props.navigation.navigate('DashboardScreen');
         AsyncStorage.getItem('token').then(value => {
           console.log('token from login ', value);
         });
@@ -241,7 +242,7 @@ class Login extends ValidationComponent {
                 }}
               />
 
-              <Text selectable>{this.state.token}</Text>
+              {/* <Text selectable>{this.state.token}</Text> */}
             </View>
           </View>
         </TouchableWithoutFeedback>

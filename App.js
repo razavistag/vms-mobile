@@ -16,7 +16,7 @@ import Login from './screens/Login';
 import HomeScreen from './screens/HomeScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
-import DashboardScreen from './screens/adminScreens/Dashboard';
+import DashboardScreen from './screens/Dashboard';
 
 import http from './helpers/httpService';
 import Sidebar from './components/CustomSidebar';
@@ -34,20 +34,20 @@ const DrawerRoutes = () => {
         component={DashboardScreen}
         options={{
           title: 'Dashboard',
+          drawerIcon: ({color, size}) => (
+            <Icon name="home" style={{fontSize: size, color: color}} />
+          ),
         }}
       />
-      <Drawer.Screen
-        name="sd"
-        component={DashboardScreen}
-        options={{
-          title: 'sd',
-        }}
-      />
+
       <Drawer.Screen
         name="Login"
         component={Login}
         options={{
           title: 'Login',
+          drawerIcon: ({color, size}) => (
+            <Icon name="star" style={{fontSize: size, color: color}} />
+          ),
         }}
       />
     </Drawer.Navigator>
@@ -68,7 +68,7 @@ function App({navigation}) {
             }}
           />
           <Stack.Screen
-            name="onPress={() => this.props.navigation.navigate('Login')"
+            name="Login"
             component={Login}
             options={{
               title: 'Login',
@@ -101,6 +101,7 @@ function App({navigation}) {
             name="DashboardScreen"
             component={DrawerRoutes}
             options={{
+              headerShown: false,
               title: 'Dashboard',
               headerTitle: props => <DashboardHeader />,
               headerTintColor: '#fff',
@@ -116,10 +117,7 @@ function App({navigation}) {
                   style={{marginLeft: 20}}
                   color="#fff"
                   size={15}
-                  onPress={
-                    props => console.log(navigation)
-                    // props.navigation.dispatch(DrawerActions.openDrawer())
-                  }></Icon>
+                  onPress={() => navigation.navigate(Login)}></Icon>
               ),
             }}
           />

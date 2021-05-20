@@ -7,8 +7,9 @@ import {
   Keyboard,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
+
 import {
   Input,
   Button,
@@ -27,7 +28,7 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props)
+    console.log(props);
 
     this.props.navigation.addListener('focus', () => {
       console.log('mounting app');
@@ -140,67 +141,13 @@ class HomeScreen extends Component {
 
             {this.state.token ? (
               <>
-                <Avatar
-                  size="small"
-                  rounded
-                  overlayContainerStyle={{backgroundColor: '#0984e3'}}
-                  icon={{name: 'list', type: 'font-awesome'}}
-                  onPress={() => {
-                    this.setState({overlyVisible: true});
-                  }}
+                <Icon
+                  name="airplay"
+                  style={{fontSize: 25, color: '#0984e3'}}
+                  onPress={() =>
+                    this.props.navigation.navigate('DashboardScreen')
+                  }
                 />
-                <Overlay
-                  isVisible={this.state.overlyVisible == true}
-                  overlayStyle={{padding: 0}}>
-                  <View
-                    style={{
-                      width: 300,
-                      padding: 0,
-                    }}>
-                    {/* overly Header */}
-                    <View
-                      style={{
-                        backgroundColor: '#26A69A',
-                        paddingVertical: 10,
-                        paddingHorizontal: 7,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      {this.state.currentUser_nam ? null : (
-                        <Text style={{color: '#fff'}}>
-                          Hello {this.state.currentUser_name} !
-                        </Text>
-                      )}
-                      <Icon
-                        name="close"
-                        color="white"
-                        onPress={() => {
-                          this.setState({overlyVisible: false});
-                        }}
-                      />
-                    </View>
-                    <View
-                      style={
-                        {
-                          // backgroundColor: 'red',
-                        }
-                      }>
-                      {this.state.headerMenu.map((i, k) => (
-                        <ListItem
-                          key={k}
-                          bottomDivider
-                          Component={TouchableOpacity}
-                          onPress={() => this.redrirect(i.title)}>
-                          <Icon name={i.icon} color="#26A69A" />
-                          <ListItem.Content>
-                            <ListItem.Title>{i.title}</ListItem.Title>
-                          </ListItem.Content>
-                          <ListItem.Chevron />
-                        </ListItem>
-                      ))}
-                    </View>
-                  </View>
-                </Overlay>
               </>
             ) : (
               <Button
@@ -224,11 +171,9 @@ class HomeScreen extends Component {
             )}
           </View>
         </View>
-        {this.state.token ? (
-          <Text selectable style={{paddingHorizontal: 15}}>
-            {this.state.token}
-          </Text>
-        ) : null}
+        {/* <View style={{backgroundColor: 'red'}}>
+          <Text>asd</Text>
+        </View> */}
       </>
     );
   }
